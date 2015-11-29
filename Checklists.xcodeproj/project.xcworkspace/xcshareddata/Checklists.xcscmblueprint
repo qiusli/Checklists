@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "AC24B866113B646C596728A3A4431EEF763B9D09",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "AC24B866113B646C596728A3A4431EEF763B9D09" : 0,
+    "AAB67C63D4BD802DEFB9870086B60EBF9E8F60DD" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "7C468FC7-52CC-44FB-B103-FFAA374B6EF9",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "AC24B866113B646C596728A3A4431EEF763B9D09" : "Checklists\/",
+    "AAB67C63D4BD802DEFB9870086B60EBF9E8F60DD" : ""
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Checklists",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Checklists.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:qiusli\/learn_swift.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "AAB67C63D4BD802DEFB9870086B60EBF9E8F60DD"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:qiusli\/Checklists.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "AC24B866113B646C596728A3A4431EEF763B9D09"
+    }
+  ]
+}
