@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ChecklistViewController: UITableViewController {
+class ChecklistViewController: UITableViewController, ItemDetailViewControllerDelegate {
     var items: [ChecklistItem]
     
     required init?(coder aDecoder: NSCoder) {
@@ -75,22 +75,10 @@ class ChecklistViewController: UITableViewController {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
     
+    // swipe to delete
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         items.removeAtIndex(indexPath.row)
         tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-    }
-    
-    @IBAction func addItem(sender: UIBarButtonItem) {
-        let newRowIndex = items.count
-        
-        let item = ChecklistItem()
-        item.text = "I am a new row"
-        item.checked = true
-        items.append(item)
-        
-        let indexPath = NSIndexPath(forRow: newRowIndex, inSection: 0)
-        let indexPaths = [indexPath]
-        tableView.insertRowsAtIndexPaths(indexPaths, withRowAnimation: .Automatic)
     }
     
     func configureTextForCell(cell: UITableViewCell, withChecklistItem item: ChecklistItem) {
@@ -100,6 +88,26 @@ class ChecklistViewController: UITableViewController {
     
     func configureCheckmarkForCell(cell: UITableViewCell, withChecklistItem item: ChecklistItem) {
         cell.accessoryType = item.checked ? .Checkmark : .None
+    }
+    
+    func itemDetailViewControllerDidCancel(controller: ItemDetailViewController) {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func itemDetailViewController(controller: ItemDetailViewController, didFinishAddingItem item: ChecklistItem) {
+        let indexRowPath = items.count
+        items.append(item)
+        let indexPath = NSIndexPath(forRow: indexRowPath, inSection: 0)
+        tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "AddItem" {
+            let navContr = segue.destinationViewController as! UINavigationController
+            let viewContr = navContr.topViewController as! ItemDetailViewController
+            viewContr.delegate = self
+        }
     }
 }
 
