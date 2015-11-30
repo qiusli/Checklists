@@ -60,6 +60,7 @@ class ChecklistViewController: UITableViewController, ItemDetailViewControllerDe
     }
     
     func configureTextForCell(cell: UITableViewCell, withChecklistItem item: ChecklistItem) {
+        // get label ontop of the cell
         let label = cell.viewWithTag(1000) as! UILabel
         label.text = item.text
     }
