@@ -87,7 +87,8 @@ class ChecklistViewController: UITableViewController, ItemDetailViewControllerDe
     }
     
     func configureCheckmarkForCell(cell: UITableViewCell, withChecklistItem item: ChecklistItem) {
-        cell.accessoryType = item.checked ? .Checkmark : .None
+        let checkmarkLabel = cell.viewWithTag(1001) as! UILabel
+        checkmarkLabel.text = item.checked ? "√" : ""
     }
     
     func itemDetailViewControllerDidCancel(controller: ItemDetailViewController) {
@@ -102,11 +103,31 @@ class ChecklistViewController: UITableViewController, ItemDetailViewControllerDe
         dismissViewControllerAnimated(true, completion: nil)
     }
     
+    func itemDetailViewController(controller: ItemDetailViewController, didFinishEditingItem item: ChecklistItem) {
+        if let index = items.indexOf(item) {
+            let indexPath = NSIndexPath(forRow: index, inSection: 0)
+            if let cell = tableView.cellForRowAtIndexPath(indexPath) {
+                configureTextForCell(cell, withChecklistItem: item)
+            }
+        }
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "AddItem" {
             let navContr = segue.destinationViewController as! UINavigationController
             let viewContr = navContr.topViewController as! ItemDetailViewController
             viewContr.delegate = self
+        } else if segue.identifier == "EditItem" {
+            let navContr = segue.destinationViewController as! UINavigationController
+            let viewContr = navContr.topViewController as! ItemDetailViewController
+            viewContr.delegate = self
+            
+            // we tapped the cell to trigger this segue, so the sender is the UITableViewCell
+            if let indexPath = tableView.indexPathForCell(sender as! UITableViewCell) {
+                let item = items[indexPath.row]
+                viewContr.itemToEdit = item
+            }
         }
     }
 }
