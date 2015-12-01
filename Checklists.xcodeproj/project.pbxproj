@@ -15,6 +15,7 @@
 		AA73B7D71C0AFD3800C2FF16 /* ChecklistItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA73B7D61C0AFD3800C2FF16 /* ChecklistItem.swift */; };
 		AA73B7D91C0B945500C2FF16 /* ItemDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA73B7D81C0B945500C2FF16 /* ItemDetailViewController.swift */; };
 		AA73B7DB1C0C058300C2FF16 /* AllListsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA73B7DA1C0C058300C2FF16 /* AllListsViewController.swift */; };
+		AA73B7DD1C0D3ECD00C2FF16 /* Checklist.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA73B7DC1C0D3ECD00C2FF16 /* Checklist.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		AA73B7D61C0AFD3800C2FF16 /* ChecklistItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChecklistItem.swift; sourceTree = "<group>"; };
 		AA73B7D81C0B945500C2FF16 /* ItemDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemDetailViewController.swift; sourceTree = "<group>"; };
 		AA73B7DA1C0C058300C2FF16 /* AllListsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllListsViewController.swift; sourceTree = "<group>"; };
+		AA73B7DC1C0D3ECD00C2FF16 /* Checklist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Checklist.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +71,7 @@
 				AA73B7D61C0AFD3800C2FF16 /* ChecklistItem.swift */,
 				AA73B7D81C0B945500C2FF16 /* ItemDetailViewController.swift */,
 				AA73B7DA1C0C058300C2FF16 /* AllListsViewController.swift */,
+				AA73B7DC1C0D3ECD00C2FF16 /* Checklist.swift */,
 			);
 			path = Checklists;
 			sourceTree = "<group>";
@@ -149,6 +152,7 @@
 				AA73B7D71C0AFD3800C2FF16 /* ChecklistItem.swift in Sources */,
 				AA73B7D91C0B945500C2FF16 /* ItemDetailViewController.swift in Sources */,
 				AA73B7DB1C0C058300C2FF16 /* AllListsViewController.swift in Sources */,
+				AA73B7DD1C0D3ECD00C2FF16 /* Checklist.swift in Sources */,
 				AA096E0E1C0AE39A004C1BD8 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
