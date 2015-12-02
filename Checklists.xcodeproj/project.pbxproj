@@ -17,6 +17,7 @@
 		AA73B7DB1C0C058300C2FF16 /* AllListsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA73B7DA1C0C058300C2FF16 /* AllListsViewController.swift */; };
 		AA73B7DD1C0D3ECD00C2FF16 /* Checklist.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA73B7DC1C0D3ECD00C2FF16 /* Checklist.swift */; };
 		AAC14F291C0DCFF400109AAB /* ListDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC14F281C0DCFF400109AAB /* ListDetailViewController.swift */; };
+		AAC14F2B1C0EA2CC00109AAB /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC14F2A1C0EA2CC00109AAB /* DataModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		AA73B7DA1C0C058300C2FF16 /* AllListsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllListsViewController.swift; sourceTree = "<group>"; };
 		AA73B7DC1C0D3ECD00C2FF16 /* Checklist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Checklist.swift; sourceTree = "<group>"; };
 		AAC14F281C0DCFF400109AAB /* ListDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListDetailViewController.swift; sourceTree = "<group>"; };
+		AAC14F2A1C0EA2CC00109AAB /* DataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +77,7 @@
 				AA73B7DA1C0C058300C2FF16 /* AllListsViewController.swift */,
 				AA73B7DC1C0D3ECD00C2FF16 /* Checklist.swift */,
 				AAC14F281C0DCFF400109AAB /* ListDetailViewController.swift */,
+				AAC14F2A1C0EA2CC00109AAB /* DataModel.swift */,
 			);
 			path = Checklists;
 			sourceTree = "<group>";
@@ -156,6 +159,7 @@
 				AA73B7D71C0AFD3800C2FF16 /* ChecklistItem.swift in Sources */,
 				AA73B7D91C0B945500C2FF16 /* ItemDetailViewController.swift in Sources */,
 				AA73B7DB1C0C058300C2FF16 /* AllListsViewController.swift in Sources */,
+				AAC14F2B1C0EA2CC00109AAB /* DataModel.swift in Sources */,
 				AA73B7DD1C0D3ECD00C2FF16 /* Checklist.swift in Sources */,
 				AA096E0E1C0AE39A004C1BD8 /* AppDelegate.swift in Sources */,
 			);

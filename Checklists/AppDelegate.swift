@@ -12,16 +12,16 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    let dataModel = DataModel()
     // save data before app terminates
     func saveData() {
-        let navContr = window!.rootViewController as! UINavigationController
-        let allListsVC = navContr.viewControllers[0] as! AllListsViewController
-        allListsVC.saveChecklists()
+        dataModel.saveChecklists()
     }
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
+        let navContr = window!.rootViewController as! UINavigationController
+        let allListsVC = navContr.viewControllers[0] as! AllListsViewController
+        allListsVC.dataModel = dataModel
         return true
     }
 

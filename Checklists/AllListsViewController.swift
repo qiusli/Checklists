@@ -9,13 +9,8 @@
 import UIKit
 
 class AllListsViewController: UITableViewController, ListDetailViewControllerDelegate {
-    var lists: [Checklist]
+    var dataModel: DataModel!
 
-    required init?(coder aDecoder: NSCoder) {
-        lists = [Checklist]()
-        super.init(coder: aDecoder)
-        loadChecklists()
-    }
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -26,19 +21,19 @@ class AllListsViewController: UITableViewController, ListDetailViewControllerDel
 
     // MARK: - Table view data source
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return lists.count
+        return dataModel.lists.count
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = cellForTableView(tableView)
-        cell.textLabel!.text = lists[indexPath.row].name
+        cell.textLabel!.text = dataModel.lists[indexPath.row].name
         cell.accessoryType = .DetailDisclosureButton
         return cell
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         // preform segue manually
-        let checklist = lists[indexPath.row]
+        let checklist = dataModel.lists[indexPath.row]
         // define which segue to perform and the sender
         // still have to use prepareForSegue method to do destination viewcontroller initialization stuff
         // we cannot see the relation between two scenes if segue manually
@@ -48,7 +43,7 @@ class AllListsViewController: UITableViewController, ListDetailViewControllerDel
     // enable user to swipe-to-delete
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         let index = indexPath.row
-        lists.removeAtIndex(index)
+        dataModel.lists.removeAtIndex(index)
         tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
     }
     
@@ -56,7 +51,7 @@ class AllListsViewController: UITableViewController, ListDetailViewControllerDel
         let navContr = storyboard!.instantiateViewControllerWithIdentifier("ListDetailNavigationController") as! UINavigationController
         let controller = navContr.topViewController as! ListDetailViewController
         controller.delegate = self
-        controller.checkistToEdit = lists[indexPath.row]
+        controller.checkistToEdit = dataModel.lists[indexPath.row]
         
         // load a view controller manually when cell accessory tapped without segue
         presentViewController(navContr, animated: true, completion: nil)
@@ -88,8 +83,8 @@ class AllListsViewController: UITableViewController, ListDetailViewControllerDel
     }
     
     func listDetailViewController(controller: ListDetailViewController, didFinishAddingChecklist checklist: Checklist) {
-        let indexRowPath = lists.count
-        lists.append(checklist)
+        let indexRowPath = dataModel.lists.count
+        dataModel.lists.append(checklist)
         let indexPath = NSIndexPath(forRow: indexRowPath, inSection: 0)
         let indexPaths = [indexPath]
         tableView.insertRowsAtIndexPaths(indexPaths, withRowAnimation: .Automatic)
@@ -97,7 +92,7 @@ class AllListsViewController: UITableViewController, ListDetailViewControllerDel
     }
     
     func listDetailViewController(controller: ListDetailViewController, didFinishEditingChecklist checklist: Checklist) {
-        if let index = lists.indexOf(checklist) {
+        if let index = dataModel.lists.indexOf(checklist) {
             let indexPath = NSIndexPath(forRow: index, inSection: 0)
             if let cell = tableView.cellForRowAtIndexPath(indexPath) {
                 // cell comes with a textLabel if it is generated manually
@@ -105,34 +100,5 @@ class AllListsViewController: UITableViewController, ListDetailViewControllerDel
             }
         }
         dismissViewControllerAnimated(true, completion: nil)
-    }
-    
-    
-    func documentDirectory() -> String {
-        let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
-        return paths[0]
-    }
-    
-    func dataFilePath() -> String {
-        return (documentDirectory() as NSString).stringByAppendingPathComponent("Checklists.plist")
-    }
-    
-    func saveChecklists() {
-        let data = NSMutableData()
-        let archiver = NSKeyedArchiver(forWritingWithMutableData: data)
-        archiver.encodeObject(lists, forKey: "Checklists")
-        archiver.finishEncoding()
-        data.writeToFile(dataFilePath(), atomically: true)
-    }
-    
-    func loadChecklists() {
-        let path = dataFilePath()
-        if NSFileManager.defaultManager().fileExistsAtPath(path) {
-            if let data = NSData(contentsOfFile: path) {
-                let unarchiver = NSKeyedUnarchiver(forReadingWithData: data)
-                lists = unarchiver.decodeObjectForKey("Checklists") as! [Checklist]
-                unarchiver.finishDecoding()
-            }
-        }
     }
 }
