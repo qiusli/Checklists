@@ -14,16 +14,7 @@ class AllListsViewController: UITableViewController, ListDetailViewControllerDel
     required init?(coder aDecoder: NSCoder) {
         lists = [Checklist]()
         super.init(coder: aDecoder)
-        
-        let list0 = Checklist(name: "Birthdays")
-        let list1 = Checklist(name: "Groceries")
-        let list2 = Checklist(name: "Cool Apps")
-        let list3 = Checklist(name: "To Do")
-        
-        lists.append(list0)
-        lists.append(list1)
-        lists.append(list2)
-        lists.append(list3)
+        loadChecklists()
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -114,5 +105,34 @@ class AllListsViewController: UITableViewController, ListDetailViewControllerDel
             }
         }
         dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    
+    func documentDirectory() -> String {
+        let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
+        return paths[0]
+    }
+    
+    func dataFilePath() -> String {
+        return (documentDirectory() as NSString).stringByAppendingPathComponent("Checklists.plist")
+    }
+    
+    func saveChecklists() {
+        let data = NSMutableData()
+        let archiver = NSKeyedArchiver(forWritingWithMutableData: data)
+        archiver.encodeObject(lists, forKey: "Checklists")
+        archiver.finishEncoding()
+        data.writeToFile(dataFilePath(), atomically: true)
+    }
+    
+    func loadChecklists() {
+        let path = dataFilePath()
+        if NSFileManager.defaultManager().fileExistsAtPath(path) {
+            if let data = NSData(contentsOfFile: path) {
+                let unarchiver = NSKeyedUnarchiver(forReadingWithData: data)
+                lists = unarchiver.decodeObjectForKey("Checklists") as! [Checklist]
+                unarchiver.finishDecoding()
+            }
+        }
     }
 }
