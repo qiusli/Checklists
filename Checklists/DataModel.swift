@@ -9,9 +9,21 @@
 import Foundation
 class DataModel {
     var lists = [Checklist]()
+    // remember the screen corresponding to the index of the table in the main screen
+    // once user uses the app again, jump to the screen where user left of last time
+    var indexOfSelectedChecklist: Int {
+        get {
+            return NSUserDefaults.standardUserDefaults().integerForKey("ChecklistIndex")
+        }
+        set {
+            NSUserDefaults.standardUserDefaults().setInteger(newValue, forKey: "ChecklistIndex")
+            NSUserDefaults.standardUserDefaults().synchronize()
+        }
+    }
     
     init() {
         loadChecklists()
+        registerDefaults()
     }
     
     func documentDirectory() -> String {
@@ -42,4 +54,9 @@ class DataModel {
         }
     }
 
+    // there's only one NSUserDefaults in every project
+    func registerDefaults() {
+        let dictionary = ["ChecklistIndex": -1]
+        NSUserDefaults.standardUserDefaults().registerDefaults(dictionary)
+    }
 }

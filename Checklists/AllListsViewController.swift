@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AllListsViewController: UITableViewController, ListDetailViewControllerDelegate {
+class AllListsViewController: UITableViewController, ListDetailViewControllerDelegate, UINavigationControllerDelegate {
     var dataModel: DataModel!
 
     override func viewDidLoad() {
@@ -19,6 +19,16 @@ class AllListsViewController: UITableViewController, ListDetailViewControllerDel
         super.didReceiveMemoryWarning()
     }
 
+    // resume from the previous screen if app terminated in accident
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        navigationController?.delegate = self
+        let index = dataModel.indexOfSelectedChecklist
+        if index >= 0 && index < dataModel.lists.count{
+            let checklist = dataModel.lists[index]
+            performSegueWithIdentifier("ShowChecklist", sender: checklist)
+        }
+    }
     // MARK: - Table view data source
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataModel.lists.count
@@ -32,6 +42,7 @@ class AllListsViewController: UITableViewController, ListDetailViewControllerDel
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        dataModel.indexOfSelectedChecklist = indexPath.row
         // preform segue manually
         let checklist = dataModel.lists[indexPath.row]
         // define which segue to perform and the sender
@@ -100,5 +111,11 @@ class AllListsViewController: UITableViewController, ListDetailViewControllerDel
             }
         }
         dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func navigationController(navigationController: UINavigationController, willShowViewController viewController: UIViewController, animated: Bool) {
+        if viewController === self {
+            dataModel.indexOfSelectedChecklist = -1
+        }
     }
 }
