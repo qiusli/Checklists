@@ -35,6 +35,7 @@ class AllListsViewController: UITableViewController, ListDetailViewControllerDel
             performSegueWithIdentifier("ShowChecklist", sender: checklist)
         }
     }
+    
     // MARK: - Table view data source
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataModel.lists.count
@@ -54,6 +55,7 @@ class AllListsViewController: UITableViewController, ListDetailViewControllerDel
         }
         
         cell.accessoryType = .DetailDisclosureButton
+        cell.imageView?.image = UIImage(named: list.iconName)
         return cell
     }
     

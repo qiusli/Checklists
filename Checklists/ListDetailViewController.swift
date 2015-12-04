@@ -14,13 +14,16 @@ protocol ListDetailViewControllerDelegate: class {
     func listDetailViewController(controller: ListDetailViewController, didFinishEditingChecklist checklist: Checklist)
 }
 
-class ListDetailViewController: UITableViewController, UITextFieldDelegate {
+class ListDetailViewController: UITableViewController, UITextFieldDelegate, IconPickerViewControllerDelegate {
     @IBOutlet weak var doneBarButton: UIBarButtonItem!
     @IBOutlet weak var textField: UITextField!
+    @IBOutlet weak var iconImageView: UIImageView!
 
     var checkistToEdit: Checklist?
     
     weak var delegate: ListDetailViewControllerDelegate?
+    
+    var iconName = "Folder"
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +31,9 @@ class ListDetailViewController: UITableViewController, UITextFieldDelegate {
             title = "Edit Checklist"
             textField.text = checklist.name
             doneBarButton.enabled = true
+            iconName = checklist.iconName
         }
+        iconImageView.image = UIImage(named: iconName)
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -40,8 +45,12 @@ class ListDetailViewController: UITableViewController, UITextFieldDelegate {
         super.didReceiveMemoryWarning()
     }
     
-    // make sure user cannot select the row
     override func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
+        // tap on a row to perform segue to the next view controller pick icon
+        if indexPath.section == 1 {
+            return indexPath
+        }
+        // not allowed to tap on a row for adding text
         return nil
     }
     
@@ -52,17 +61,31 @@ class ListDetailViewController: UITableViewController, UITextFieldDelegate {
         return true
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "PickIcon" {
+            let controller = segue.destinationViewController as! IconPickerViewController
+            controller.delegate = self
+        }
+    }
+    
     @IBAction func done(sender: UIBarButtonItem) {
         if let checklist = checkistToEdit {
             checklist.name = textField.text!
+            checklist.iconName = self.iconName
             delegate?.listDetailViewController(self, didFinishEditingChecklist: checklist)
         } else {
-            let checklist = Checklist(name: textField.text!)
+            let checklist = Checklist(name: textField.text!, iconName: self.iconName)
             delegate?.listDetailViewController(self, didFinishAddingChecklist: checklist)
         }
     }
     
     @IBAction func cancel(sender: UIBarButtonItem) {
         delegate?.listDetailViewControllerDidCancel(self)
+    }
+    
+    func iconPicker(picker: IconPickerViewController, didPickIcon iconName: String) {
+        self.iconName = iconName
+        iconImageView.image = UIImage(named: iconName)
+        navigationController?.popViewControllerAnimated(true)
     }
 }
